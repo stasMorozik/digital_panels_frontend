@@ -1,0 +1,28 @@
+<form [formGroup]="signUpForm" (ngSubmit)="signUp()" class="mt-1">
+  <common-input  
+    required="true" 
+    type="text"
+    label="Как к вам обращаться?"
+    class="mb-2 mt-6 block"
+    formControlName="name"
+  >
+  </common-input>
+  <common-input  
+    required="true" 
+    type="email"
+    label="Адрес электронной почты"
+    class="mb-6 block"
+    formControlName="email"
+  >
+  </common-input>
+  <p class="text-zinc-500 text-xs mb-6">
+    Нажимая «Получить доступ, я соглашаюсь с <uderline-link link="/privacy-policy">Политикой конфиденциальности</uderline-link>, 
+    <br> 
+    и <uderline-link link="/user-agreement">Пользовательским соглашением</uderline-link>
+  </p>
+  <div class="flex justify-end">
+    <common-button type="submit">Получить доступ</common-button>
+  </div>
+</form>
+
+

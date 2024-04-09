@@ -1,0 +1,18 @@
+FROM node:20.10.0-alpine
+
+WORKDIR /app
+
+COPY package.json /app/package.json
+RUN npm install
+RUN npm install -g @angular/cli
+RUN npm install -D tailwindcss postcss autoprefixer
+
+COPY angular.json /app/angular.json
+COPY tsconfig.app.json /app/tsconfig.app.json
+COPY tsconfig.json /app/tsconfig.json
+COPY tailwind.config.js /app/tailwind.config.js
+COPY src /app/src/
+
+EXPOSE 4200
+
+CMD ["/usr/local/bin/ng", "serve", "--host", "0.0.0.0"]
