@@ -5,17 +5,18 @@ import { provideStore, provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { routes } from './app.routes';
 import { appReducer } from './state/app.reducer';
-import { UserAuthorizationEffect } from './state/user/effects/user.authorization.effect';
+import * as userAuthorizationEffect from './state/user/effects';
+import { refreshTokenInterceptor } from './app.interceptors';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
     provideHttpClient(
       withFetch(),
-      withInterceptors([]),
+      withInterceptors([refreshTokenInterceptor]),
     ),
     provideStore(),
-    provideEffects(UserAuthorizationEffect),
+    provideEffects(userAuthorizationEffect),
     provideState({ name: 'app', reducer: appReducer }),
   ],
 };

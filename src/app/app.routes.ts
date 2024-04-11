@@ -5,11 +5,13 @@ import { SignInComponent } from './pages/sign/in/sign-in.component';
 import { SignUpComponent } from './pages/sign/up/sign-up.component';
 import { UserAgreementComponent } from './pages/user-agreement/user-agreement.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
+import { authGuard } from './app.guards';
 
 export const routes: Routes = [
   {
     path: 'sign',
     component: SignComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'in',

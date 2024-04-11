@@ -11,6 +11,7 @@ COPY angular.json /app/angular.json
 COPY tsconfig.app.json /app/tsconfig.app.json
 COPY tsconfig.json /app/tsconfig.json
 COPY tailwind.config.js /app/tailwind.config.js
+COPY proxy.conf.json ./proxy.conf.json
 COPY src /app/src/
 
 EXPOSE 4200
