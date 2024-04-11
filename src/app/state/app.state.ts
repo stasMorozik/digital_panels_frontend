@@ -21,7 +21,7 @@ export type User = {
   name?: string
 };
 
-export type Visibility = 'SHOW' | 'HIDDEN';
+export type Visibility = 'SHOWN' | 'HIDING' | 'HIDDEN';
 
 export type AppError = {
   message: string,

@@ -2,8 +2,8 @@ import { createReducer, on } from '@ngrx/store';
 import { appState } from './app.state';
 import { userAuthorizedAction, userGotCodeAction } from './user/user.actions';
 import { userAuthorizedReducer, userGotCodeReducer } from './user/user.reducers';
-import { showErrorAction, gotErrorAction, hideErrorAction } from './shared/shared.actions';
-import { showErrorReducer, gotErrorReducer, hideErrorReducer } from './shared/shared.reducers';
+import { showErrorAction, gotErrorAction, hidingErrorAction, hideErrorAction } from './shared/shared.actions';
+import { showErrorReducer, gotErrorReducer, hidingErrorReducer, hideErrorReducer } from './shared/shared.reducers';
 
 export const appReducer = createReducer(
   appState,
@@ -11,5 +11,6 @@ export const appReducer = createReducer(
   on(userGotCodeAction, userGotCodeReducer),
   on(gotErrorAction, gotErrorReducer),
   on(showErrorAction, showErrorReducer),
+  on(hidingErrorAction, hidingErrorReducer),
   on(hideErrorAction, hideErrorReducer),
 );

@@ -22,7 +22,19 @@ export const showErrorReducer = (
     ...state,
     error: {
       message: (action as Action as AppAction<Error>).payload.message,
-      visibility: 'SHOW' as Visibility
+      visibility: 'SHOWN' as Visibility
+    } as AppError
+  };
+};
+
+export const hidingErrorReducer = (
+  state: AppState
+) => {
+  return {
+    ...state,
+    error: {
+      ...state.error,
+      visibility: 'HIDING' as Visibility
     } as AppError
   };
 };
@@ -34,7 +46,7 @@ export const hideErrorReducer = (
     ...state,
     error: {
       ...state.error,
-      visibility: 'HIDE' as Visibility
+      visibility: 'HIDDEN' as Visibility
     } as AppError
   };
 };

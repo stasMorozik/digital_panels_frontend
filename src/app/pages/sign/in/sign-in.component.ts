@@ -1,12 +1,13 @@
-import { Observable } from 'rxjs';
+import { Observable, of, delay } from 'rxjs';
+import { exhaustMap, concatMap, switchMap, tap } from 'rxjs/operators';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { CommonInputComponent } from '../../../ui/inputs/common-input/common-input.component';
-import { CommonButtonComponent } from '../../../ui/buttons/common-button/common-button.component';
-import { UderlineLinkComponent } from '../../../ui/links/uderline-link/uderline-link.component';
+import { CommonInputComponent } from 'src/app/ui/inputs/common-input/common-input.component';
+import { CommonButtonComponent } from 'src/app/ui/buttons/common-button/common-button.component';
+import { UderlineLinkComponent } from 'src/app/ui/links/uderline-link/uderline-link.component';
 import { userGetCodeAction } from 'src/app/state/user/user.actions';
 import { State, Approval, AppError } from 'src/app/state/app.state';
 import { userIsAuthenticatedSelector } from 'src/app/state/user/user.selectors';
@@ -45,7 +46,13 @@ export class SignInComponent {
     });
 
     this.isAuthenticated$ = this.store.select(userIsAuthenticatedSelector);
-    this.error$ = this.store.select(errorObjectSelector);
+    this.error$ = this.store.select(errorObjectSelector).pipe(
+      switchMap((error) => {
+        return of(error).pipe(
+          tap((r) => console.log(r))
+        );
+      })
+    );
   }
 
   getCode() {

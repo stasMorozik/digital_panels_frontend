@@ -10,6 +10,10 @@ export const showErrorAction = createAction(
   props<{ message: string }>()
 );
 
+export const hidingErrorAction = createAction(
+  '[SITE] Hiding Error'
+);
+
 export const hideErrorAction = createAction(
   '[SITE] Hide Error'
 );

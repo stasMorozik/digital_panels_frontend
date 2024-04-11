@@ -14,4 +14,6 @@ import { CommonLinkComponent } from '../../ui/links/common-link/common-link.comp
     CommonLinkComponent
   ],
 })
-export class SignComponent {}
+export class SignComponent {
+  constructor() {}
+}

@@ -1,5 +1,6 @@
 import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideStore, provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
@@ -19,5 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideStore(),
     provideEffects(userEffects, sharedEffects),
     provideState({ name: 'app', reducer: appReducer }),
+    provideAnimationsAsync()
   ],
 };

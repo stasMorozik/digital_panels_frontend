@@ -1,9 +1,7 @@
 @if (error$ | async; as error) {
-  @if(error.visibility == 'SHOW') {
-    <alert-danger>
-      {{error.message}}
-    </alert-danger>
-  }
+  <alert-danger state="{{error.visibility}}">
+    {{error.message}}
+  </alert-danger>
 }
 
 @if (isAuthenticated$ | async; as isAuthenticated) {

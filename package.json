@@ -14,6 +14,7 @@
     "@angular/core": "^17.3.0-rc",
     "@angular/forms": "^17.3.0-rc",
     "@angular/platform-browser": "^17.3.0-rc",
+    "@angular/animations": "^17.3.4",
     "@angular/router": "^17.3.0-rc",
     "@ngrx/store": "^17.1.1",
     "@ngrx/effects": "17.1.1",

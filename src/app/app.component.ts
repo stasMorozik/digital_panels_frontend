@@ -1,5 +1,9 @@
-import { Component } from '@angular/core';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { Component, OnInit } from '@angular/core';
+import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { State } from 'src/app/state/app.state';
+import { hideErrorAction } from './state/shared/shared.actions';
 
 @Component({
   selector: 'app-root',
@@ -9,8 +13,17 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
   standalone: true,
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
 })
-export class AppComponent {
-  constructor() {}
+export class AppComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private store: Store<State>
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.router.events.pipe(
+      filter((e) => e instanceof NavigationEnd)  
+    ).subscribe((e) => {
+      this.store.dispatch(hideErrorAction());
+    });
+  }
 }
