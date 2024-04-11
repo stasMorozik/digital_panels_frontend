@@ -1,14 +1,16 @@
-import { AppState } from "../app.state";
+import { AppState, AppAction, Approval } from "../app.state";
+import { Action } from '@ngrx/store';
 
 export const userAuthorizedReducer = (
   state: AppState,
-  payload: {email: string, name: string}
+  action: Action
 ) => ({
   ...state,
   user: {
-    email: payload.email,
-    name: payload.name,
-    isAuth: true
+    ...state.user,
+    email: (action as Action as AppAction<{email: string}>).payload.email,
+    name: (action as Action as AppAction<{name: string}>).payload.name,
+    isAuthorized: 'YES' as Approval
   }
 });
 
@@ -17,6 +19,17 @@ export const userNotAuthorizedReducer = (
 ) => ({
   ...state,
   user: {
-    isAuth: false
+    ...state.user,
+    isAuthorized: 'NO' as Approval
+  }
+});
+
+export const userGotCodeReducer = (
+  state: AppState
+) => ({
+  ...state,
+  user: {
+    ...state.user,
+    isAuthenticated: 'IN_PROCESS' as Approval
   }
 });

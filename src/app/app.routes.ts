@@ -5,13 +5,14 @@ import { SignInComponent } from './pages/sign/in/sign-in.component';
 import { SignUpComponent } from './pages/sign/up/sign-up.component';
 import { UserAgreementComponent } from './pages/user-agreement/user-agreement.component';
 import { PrivacyPolicyComponent } from './pages/privacy-policy/privacy-policy.component';
-import { authGuard } from './app.guards';
+import { guardNotAuthorizedPage, guardAuthorizedPage } from './app.guards';
+import { WorkSpaceComponent } from './pages/work-space/work-space.component';
 
 export const routes: Routes = [
   {
     path: 'sign',
     component: SignComponent,
-    canActivate: [authGuard],
+    canActivate: [guardNotAuthorizedPage],
     children: [
       {
         path: 'in',
@@ -23,6 +24,14 @@ export const routes: Routes = [
         title: 'Получение доступа', 
         component: SignUpComponent
       },
+    ]
+  },
+  {
+    path: 'work-space',
+    component: WorkSpaceComponent,
+    canActivate: [guardAuthorizedPage],
+    children: [
+      
     ]
   },
   {

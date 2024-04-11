@@ -1,49 +1,62 @@
-@if (state == 'GET_CODE') {
-  <form [formGroup]="getCodeForm" (ngSubmit)="getCode()" class="mt-1">
-    <common-input  
-      required="true" 
-      type="email"
-      label="Адрес электронной почты"
-      class="mb-6 mt-6 block"
-      formControlName="email"
-    >
-    </common-input>
-    <p class="text-zinc-500 text-xs mb-2">
-      Мы отправим одноразовый код вам на электронную почту
-    </p>
-    <p class="text-zinc-500 text-xs mb-6">
-      Нажимая «Получить код», я соглашаюсь с <uderline-link link="/privacy-policy">Политикой конфиденциальности</uderline-link>, 
-      <br> 
-      и <uderline-link link="/user-agreement">Пользовательским соглашением</uderline-link>
-    </p>
-    <div class="flex justify-end mt-12">
-      <common-button type="submit">Получить код</common-button>
-    </div>
-  </form>
+@if (error$ | async; as error) {
+  @if(error.visibility == 'SHOW') {
+    <alert-danger>
+      {{error.message}}
+    </alert-danger>
+  }
 }
 
-@if (state == 'SEND_CODE') {
-  <form [formGroup]="signInForm" (ngSubmit)="signIn()" class="mt-1">
-    <common-input  
-      required="true" 
-      type="text"
-      label="Одноразовый код"
-      class="mb-2 block"
-      formControlName="code"
-    >
-    </common-input>
-    <common-input  
-      required="true" 
-      type="hidden"
-      class="mb-2 block"
-      formControlName="email"
-    >
-    </common-input>
-    <p class="text-zinc-500 text-xs mb-2">
-      Мы отправили одноразовый код вам на электронную почту, его нужно ввести
-    </p>
-    <div class="flex justify-end mt-12">
-      <common-button type="submit">Войти</common-button>
-    </div>
-  </form>
+@if (isAuthenticated$ | async; as isAuthenticated) {
+  @if (isAuthenticated == 'NO') {
+    <form [formGroup]="getCodeForm" (ngSubmit)="getCode()" class="mt-1">
+      <common-input  
+        required="true" 
+        type="email"
+        label="Адрес электронной почты"
+        class="mb-6 mt-6 block"
+        formControlName="email"
+      >
+      </common-input>
+      <p class="text-zinc-500 text-xs mb-2">
+        Мы отправим одноразовый код вам на электронную почту
+      </p>
+      <p class="text-zinc-500 text-xs mb-6">
+        Нажимая «Получить код», я соглашаюсь с <uderline-link link="/privacy-policy">Политикой конфиденциальности</uderline-link>, 
+        <br> 
+        и <uderline-link link="/user-agreement">Пользовательским соглашением</uderline-link>
+      </p>
+      <div class="flex justify-end mt-12">
+        <common-button type="submit">Получить код</common-button>
+      </div>
+    </form>
+  }
+
+  @if (isAuthenticated == 'IN_PROCESS') {
+    <form [formGroup]="signInForm" (ngSubmit)="signIn()" class="mt-1">
+      <common-input  
+        required="true" 
+        type="text"
+        label="Одноразовый код"
+        class="mb-2 block"
+        formControlName="code"
+      >
+      </common-input>
+      <common-input  
+        required="true" 
+        type="hidden"
+        class="mb-2 block"
+        formControlName="email"
+      >
+      </common-input>
+      <p class="text-zinc-500 text-xs mb-2">
+        Мы отправили одноразовый код вам на электронную почту, его нужно ввести
+      </p>
+      <div class="flex justify-end mt-12">
+        <common-button type="submit">Войти</common-button>
+      </div>
+    </form>
+  }
 }
+
+
+  

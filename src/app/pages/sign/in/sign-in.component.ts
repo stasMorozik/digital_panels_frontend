@@ -1,42 +1,62 @@
+import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { CommonInputComponent } from '../../../ui/inputs/common-input/common-input.component';
 import { CommonButtonComponent } from '../../../ui/buttons/common-button/common-button.component';
 import { UderlineLinkComponent } from '../../../ui/links/uderline-link/uderline-link.component';
-
-type State = 'GET_CODE' | 'SEND_CODE';
+import { userGetCodeAction } from 'src/app/state/user/user.actions';
+import { State, Approval, AppError } from 'src/app/state/app.state';
+import { userIsAuthenticatedSelector } from 'src/app/state/user/user.selectors';
+import { errorObjectSelector } from 'src/app/state/shared/shared.selectors';
+import { AlertDangerComponent } from 'src/app/ui/alerts/alert-danger.component';
 
 @Component({
   selector: 'sign-in',
   templateUrl: './sign-in.component.html',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     CommonInputComponent,
     CommonButtonComponent,
-    UderlineLinkComponent
+    UderlineLinkComponent,
+    AlertDangerComponent
   ]
 })
 export class SignInComponent {
-  state: State = 'GET_CODE';
+  getCodeForm: FormGroup;
+  signInForm: FormGroup;
+  isAuthenticated$: Observable<Approval>;
+  error$: Observable<AppError>;
 
-  getCodeForm = new FormGroup({
-    email: new FormControl('')
-  });
+  constructor(
+    private store: Store<State>
+  ) {
+    this.getCodeForm = new FormGroup({
+      email: new FormControl('')
+    });
 
-  signInForm = new FormGroup({
-    email: new FormControl(''),
-    code: new FormControl('')
-  });
+    this.signInForm = new FormGroup({
+      email: new FormControl(''),
+      code: new FormControl('')
+    });
+
+    this.isAuthenticated$ = this.store.select(userIsAuthenticatedSelector);
+    this.error$ = this.store.select(errorObjectSelector);
+  }
 
   getCode() {
-    console.log(this.getCodeForm.value.email);
-    this.signInForm.setValue({email: this.getCodeForm.value.email!, code: ''});
-    this.state = 'SEND_CODE';
+    this.store.dispatch(userGetCodeAction({email: this.getCodeForm.value.email}));
   }
 
   signIn() {
+    
+  }
 
+  ngOnInit() {
+    
   }
 }

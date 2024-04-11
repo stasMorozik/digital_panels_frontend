@@ -5,7 +5,8 @@ import { provideStore, provideState } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { routes } from './app.routes';
 import { appReducer } from './state/app.reducer';
-import * as userAuthorizationEffect from './state/user/effects';
+import * as userEffects from './state/user/user.effects';
+import * as sharedEffects from './state/shared/shared.effects';
 import { refreshTokenInterceptor } from './app.interceptors';
 
 export const appConfig: ApplicationConfig = {
@@ -16,7 +17,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([refreshTokenInterceptor]),
     ),
     provideStore(),
-    provideEffects(userAuthorizationEffect),
+    provideEffects(userEffects, sharedEffects),
     provideState({ name: 'app', reducer: appReducer }),
   ],
 };
