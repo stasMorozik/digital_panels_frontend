@@ -13,7 +13,6 @@ import {
     @if(state == 'SHOWN' || state == 'HIDING') {
       <div [@showHide]="state == 'SHOWN' ? 'show' : 'hide'" class="p-4 mb-4 text-md border text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400">
       <span class="font-medium">
-        {{state}}
         <ng-content></ng-content>  
       </span>
     </div>
@@ -35,8 +34,8 @@ import {
           opacity: 0
         }),
       ),
-      transition('show => hide', [animate('5s')]),
-      transition('hide => show', [animate('0.5s')]),
+      transition('show => hide', [animate('3s')]),
+      transition('hide => show', [animate('1s')]),
     ]),
   ]
 })

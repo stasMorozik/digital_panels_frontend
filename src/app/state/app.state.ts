@@ -9,7 +9,7 @@ export type AppAction<T> = {
 
 export type AppState = {
   user: User,
-  error?: AppError
+  notification?: Notification
 };
 
 export type Approval = 'YES' | 'IN_PROCESS' | 'NO';
@@ -23,8 +23,11 @@ export type User = {
 
 export type Visibility = 'SHOWN' | 'HIDING' | 'HIDDEN';
 
-export type AppError = {
+export type TypeNotification = 'DANGER' | 'WARNING' | 'INFO'
+
+export type Notification = {
   message: string,
+  type: TypeNotification,
   visibility: Visibility
 }
 

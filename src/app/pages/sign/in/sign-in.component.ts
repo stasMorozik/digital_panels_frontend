@@ -1,5 +1,4 @@
-import { Observable, of, delay } from 'rxjs';
-import { exhaustMap, concatMap, switchMap, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl } from '@angular/forms';
@@ -9,9 +8,9 @@ import { CommonInputComponent } from 'src/app/ui/inputs/common-input/common-inpu
 import { CommonButtonComponent } from 'src/app/ui/buttons/common-button/common-button.component';
 import { UderlineLinkComponent } from 'src/app/ui/links/uderline-link/uderline-link.component';
 import { userGetCodeAction } from 'src/app/state/user/user.actions';
-import { State, Approval, AppError } from 'src/app/state/app.state';
+import { State, Approval, Notification } from 'src/app/state/app.state';
 import { userIsAuthenticatedSelector } from 'src/app/state/user/user.selectors';
-import { errorObjectSelector } from 'src/app/state/shared/shared.selectors';
+import { notificationObjectSelector } from 'src/app/state/shared/shared.selectors';
 import { AlertDangerComponent } from 'src/app/ui/alerts/alert-danger.component';
 
 @Component({
@@ -31,7 +30,7 @@ export class SignInComponent {
   getCodeForm: FormGroup;
   signInForm: FormGroup;
   isAuthenticated$: Observable<Approval>;
-  error$: Observable<AppError>;
+  notification$: Observable<Notification>;
 
   constructor(
     private store: Store<State>
@@ -46,9 +45,7 @@ export class SignInComponent {
     });
 
     this.isAuthenticated$ = this.store.select(userIsAuthenticatedSelector);
-    this.error$ = this.store.select(errorObjectSelector).pipe(
-      // tap((r) => console.log(r))
-    );
+    this.notification$ = this.store.select(notificationObjectSelector);
   }
 
   getCode() {

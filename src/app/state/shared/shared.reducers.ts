@@ -1,16 +1,19 @@
-import { AppAction, AppState, AppError, Visibility } from "../app.state";
+import { AppAction, AppState, Notification, TypeNotification, Visibility } from "../app.state";
 import { Action } from '@ngrx/store';
 
 export const gotErrorReducer = (
   state: AppState,
   action: Action
 ) => {
+  const payload = (action as Action as AppAction<{message: string}>).payload;
+
   return {
     ...state,
-    error: {
-      message: (action as Action as AppAction<Error>).payload.message,
-      visibility: 'HIDDEN' as Visibility
-    } as AppError
+    notification: {
+      message: payload.message,
+      visibility: 'HIDDEN' as Visibility,
+      type: 'DANGER' as TypeNotification
+    } as Notification
   };
 };
 
@@ -18,24 +21,30 @@ export const showErrorReducer = (
   state: AppState,
   action: Action
 ) => {
+  const payload = (action as Action as AppAction<{message: string}>).payload;
+
   return {
     ...state,
-    error: {
-      message: (action as Action as AppAction<Error>).payload.message,
-      visibility: 'SHOWN' as Visibility
-    } as AppError
+    notification: {
+      message: payload.message,
+      visibility: 'SHOWN' as Visibility,
+      type: 'DANGER' as TypeNotification
+    } as Notification
   };
 };
 
 export const hidingErrorReducer = (
   state: AppState
 ) => {
+  const visibility = state.notification?.visibility;
+
   return {
     ...state,
-    error: {
-      ...state.error,
-      visibility: 'HIDING' as Visibility
-    } as AppError
+    notification: {
+      ...state.notification,
+      visibility: visibility == 'SHOWN' ? ('HIDING' as Visibility) : visibility,
+      type: 'DANGER' as TypeNotification
+    } as Notification
   };
 };
 
@@ -44,9 +53,10 @@ export const hideErrorReducer = (
 ) => {
   return {
     ...state,
-    error: {
-      ...state.error,
-      visibility: 'HIDDEN' as Visibility
-    } as AppError
+    notification: {
+      ...state.notification,
+      visibility: 'HIDDEN' as Visibility,
+      type: 'DANGER' as TypeNotification
+    } as Notification
   };
 };

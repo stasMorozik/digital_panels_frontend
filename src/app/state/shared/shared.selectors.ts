@@ -1,9 +1,14 @@
 import { createSelector } from '@ngrx/store';
-import { AppError, State } from '../app.state';
+import { Notification, State } from '../app.state';
 
-export const errorSelector = (state: State) => state.app.error!;
+export const notificationSelector = (state: State) => state.app.notification!;
 
-export const errorObjectSelector = createSelector(
-  errorSelector,
-  (error: AppError) => error
+export const notificationObjectSelector = createSelector(
+  notificationSelector,
+  (n: Notification) => n
+);
+
+export const notificationVisibilitySelector = createSelector(
+  notificationSelector,
+  (n: Notification) => n.visibility
 );

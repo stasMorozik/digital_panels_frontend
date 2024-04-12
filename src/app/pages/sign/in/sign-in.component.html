@@ -1,6 +1,6 @@
-@if (error$ | async; as error) {
-  <alert-danger state="{{error.visibility}}">
-    {{error.message}}
+@if (notification$ | async; as notification) {
+  <alert-danger state="{{notification.visibility}}">
+    {{notification.message}}
   </alert-danger>
 }
 
