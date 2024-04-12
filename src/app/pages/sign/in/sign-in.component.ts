@@ -47,11 +47,7 @@ export class SignInComponent {
 
     this.isAuthenticated$ = this.store.select(userIsAuthenticatedSelector);
     this.error$ = this.store.select(errorObjectSelector).pipe(
-      switchMap((error) => {
-        return of(error).pipe(
-          tap((r) => console.log(r))
-        );
-      })
+      // tap((r) => console.log(r))
     );
   }
 
