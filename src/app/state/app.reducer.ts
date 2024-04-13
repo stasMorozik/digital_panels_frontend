@@ -26,6 +26,16 @@ import {
   hideNotificationReducer 
 } from './shared/shared.reducers';
 
+import { 
+  fileListLoadedAction,
+  fileListLoadingAction 
+} from './file/file.actions';
+
+import { 
+  fileListLoadedReducer,
+  fileListLoadingReducer 
+} from './file/file.reducers';
+
 export const appReducer = createReducer(
   appState,
   on(userAuthorizedAction, userAuthorizedReducer),
@@ -35,4 +45,6 @@ export const appReducer = createReducer(
   on(showNotificationAction, showNotificationReducer),
   on(hidingNotificationAction, hidingNotificationReducer),
   on(hideNotificationAction, hideNotificationReducer),
+  on(fileListLoadingAction, fileListLoadingReducer),
+  on(fileListLoadedAction, fileListLoadedReducer),
 );

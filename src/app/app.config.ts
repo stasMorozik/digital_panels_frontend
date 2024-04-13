@@ -8,6 +8,7 @@ import { routes } from './app.routes';
 import { appReducer } from './state/app.reducer';
 import * as userEffects from './state/user/user.effects';
 import * as sharedEffects from './state/shared/shared.effects';
+import * as fileEffects from './state/file/file.effects';
 import { refreshTokenInterceptor } from './app.interceptors';
 
 export const appConfig: ApplicationConfig = {
@@ -18,7 +19,7 @@ export const appConfig: ApplicationConfig = {
       withInterceptors([refreshTokenInterceptor]),
     ),
     provideStore(),
-    provideEffects(userEffects, sharedEffects),
+    provideEffects(userEffects, sharedEffects, fileEffects),
     provideState({ name: 'app', reducer: appReducer }),
     provideAnimationsAsync()
   ],
