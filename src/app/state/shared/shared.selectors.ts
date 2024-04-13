@@ -1,5 +1,6 @@
 import { createSelector } from '@ngrx/store';
-import { Notification, State } from '../app.state';
+import { State } from '../app.types';
+import { Notification } from './shared.types';
 
 export const notificationSelector = (state: State) => state.app.notification!;
 

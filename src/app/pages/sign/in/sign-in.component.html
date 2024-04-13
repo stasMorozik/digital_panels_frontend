@@ -1,7 +1,7 @@
 @if (notification$ | async; as notification) {
-  <alert-danger state="{{notification.visibility}}">
+  <notification state="{{notification.visibility}}" type="{{notification.type}}">
     {{notification.message}}
-  </alert-danger>
+  </notification>
 }
 
 @if (isAuthenticated$ | async; as isAuthenticated) {
@@ -15,9 +15,6 @@
         formControlName="email"
       >
       </common-input>
-      <p class="text-zinc-500 text-xs mb-2">
-        Мы отправим одноразовый код вам на электронную почту
-      </p>
       <p class="text-zinc-500 text-xs mb-6">
         Нажимая «Получить код», я соглашаюсь с <uderline-link link="/privacy-policy">Политикой конфиденциальности</uderline-link>, 
         <br> 
@@ -46,8 +43,10 @@
         formControlName="email"
       >
       </common-input>
-      <p class="text-zinc-500 text-xs mb-2">
-        Мы отправили одноразовый код вам на электронную почту, его нужно ввести
+      <p class="text-zinc-500 text-xs mb-6">
+        Нажимая «Войти», я соглашаюсь с <uderline-link link="/privacy-policy">Политикой конфиденциальности</uderline-link>, 
+        <br> 
+        и <uderline-link link="/user-agreement">Пользовательским соглашением</uderline-link>
       </p>
       <div class="flex justify-end mt-12">
         <common-button type="submit">Войти</common-button>

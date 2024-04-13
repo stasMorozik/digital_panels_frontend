@@ -1,7 +1,13 @@
 import { createSelector } from '@ngrx/store';
-import { User, State } from '../app.state';
+import { State } from '../app.types';
+import { User } from './user.types';
 
 export const userSelector = (state: State): User => state.app.user;
+
+export const userObjectSelector = createSelector(
+  userSelector,
+  (user: User) => user
+);
 
 export const userIsAuthorizationSelector = createSelector(
   userSelector,

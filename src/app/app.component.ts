@@ -2,8 +2,8 @@ import { filter } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { State } from 'src/app/state/app.state';
-import { hideErrorAction } from './state/shared/shared.actions';
+import { State } from 'src/app/state/app.types';
+import { hideNotificationAction } from './state/shared/shared.actions';
 
 @Component({
   selector: 'app-root',
@@ -22,8 +22,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.router.events.pipe(
       filter((e) => e instanceof NavigationEnd)  
-    ).subscribe((e) => {
-      this.store.dispatch(hideErrorAction());
+    ).subscribe(() => {
+      this.store.dispatch(hideNotificationAction());
     });
   }
 }

@@ -6,7 +6,7 @@ export const userAuthorizationAction = createAction(
 
 export const userAuthorizedAction = createAction(
   '[SITE] User Authorized', 
-  props<{ name: string, email: string }>()
+  props<{ name: string, email: string, surname: string }>()
 );
 
 export const userNotAuthorizationAction = createAction(
@@ -20,4 +20,13 @@ export const userGetCodeAction = createAction(
 
 export const userGotCodeAction = createAction(
   '[Sign In page] User Got Code'
+);
+
+export const userSingInAction = createAction(
+  '[Sign In page] User Sign In',
+  props<{ code: string, email: string }>()
+);
+
+export const userAuthenticatedAction = createAction(
+  '[Sign In page] User Authenticated'
 );

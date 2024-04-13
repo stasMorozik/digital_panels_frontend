@@ -1,33 +1,46 @@
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
+import { Actions } from '@ngrx/effects';
 import { inject } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, Action } from '@ngrx/store';
 import { userAuthorizationAction } from './state/user/user.actions';
-import { userIsAuthorizationSelector } from './state/user/user.selectors';
-import { ActivatedRouteSnapshot, RouterStateSnapshot, createUrlTreeFromSnapshot } from '@angular/router';
-import { Approval } from './state/app.state';
+import { 
+  ActivatedRouteSnapshot, 
+  RouterStateSnapshot, 
+  createUrlTreeFromSnapshot 
+} from '@angular/router';
 
 export const guardNotAuthorizedPage = (
   route: ActivatedRouteSnapshot,
   _: RouterStateSnapshot
 ) => {
-  inject(Store).dispatch(userAuthorizationAction());
-  
-  return inject(Store).select(userIsAuthorizationSelector).pipe(
-    map((isAuth: Approval) => {
-      return isAuth == 'YES' ? createUrlTreeFromSnapshot(route, ['/work-space/playlist']) : true
-    })
+  const store$ = inject(Store);
+
+  store$.dispatch(userAuthorizationAction());
+
+  return inject(Actions).pipe(
+    filter(
+      (a: Action) => a.type == '[SITE] User Authorized' || a.type == '[SITE] User Not Authorized'
+    ),
+    map(
+      (a: Action) => a.type == '[SITE] User Authorized' ? createUrlTreeFromSnapshot(route, ['/work-space/']) : true
+    )
   );
-}
+};
 
 export const guardAuthorizedPage = (
   route: ActivatedRouteSnapshot,
   _: RouterStateSnapshot
 ) => {
-  inject(Store).dispatch(userAuthorizationAction());
+  const store$ = inject(Store);
 
-  return inject(Store).select(userIsAuthorizationSelector).pipe(
-    map((isAuth: Approval) => {
-      return isAuth == 'YES' ? true : createUrlTreeFromSnapshot(route, ['/sign/in'])
-    })
+  store$.dispatch(userAuthorizationAction());
+
+  return inject(Actions).pipe(
+    filter(
+      (a: Action) => a.type == '[SITE] User Authorized' || a.type == '[SITE] User Not Authorized'
+    ),
+    map(
+      (a: Action) => a.type == '[SITE] User Authorized' ? true : createUrlTreeFromSnapshot(route, ['/sign/in'])
+    )
   );
-}
+};

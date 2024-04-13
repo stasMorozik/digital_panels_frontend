@@ -1,39 +1,37 @@
-import { AppAction, AppState, Notification, TypeNotification, Visibility } from "../app.state";
+import { AppAction, AppState } from "../app.types";
+import { Notification, Visibility, TypeNotification } from './shared.types';
 import { Action } from '@ngrx/store';
 
-export const gotErrorReducer = (
+export const gotNotificationReducer = (
   state: AppState,
-  action: Action
 ) => {
-  const payload = (action as Action as AppAction<{message: string}>).payload;
-
   return {
     ...state,
     notification: {
-      message: payload.message,
       visibility: 'HIDDEN' as Visibility,
-      type: 'DANGER' as TypeNotification
     } as Notification
   };
 };
 
-export const showErrorReducer = (
+export const showNotificationReducer = (
   state: AppState,
   action: Action
 ) => {
-  const payload = (action as Action as AppAction<{message: string}>).payload;
-
+  const payload = (
+    (action as Action as AppAction<{message: string, typeNotification: TypeNotification}>
+  ).payload);
+  
   return {
     ...state,
     notification: {
       message: payload.message,
+      type: payload.typeNotification,
       visibility: 'SHOWN' as Visibility,
-      type: 'DANGER' as TypeNotification
     } as Notification
   };
 };
 
-export const hidingErrorReducer = (
+export const hidingNotificationReducer = (
   state: AppState
 ) => {
   const visibility = state.notification?.visibility;
@@ -43,12 +41,11 @@ export const hidingErrorReducer = (
     notification: {
       ...state.notification,
       visibility: visibility == 'SHOWN' ? ('HIDING' as Visibility) : visibility,
-      type: 'DANGER' as TypeNotification
     } as Notification
   };
 };
 
-export const hideErrorReducer = (
+export const hideNotificationReducer = (
   state: AppState
 ) => {
   return {
@@ -56,7 +53,6 @@ export const hideErrorReducer = (
     notification: {
       ...state.notification,
       visibility: 'HIDDEN' as Visibility,
-      type: 'DANGER' as TypeNotification
     } as Notification
   };
 };

@@ -1,19 +1,20 @@
 import { createAction, props } from '@ngrx/store';
+import { TypeNotification } from './shared.types';
 
-export const gotErrorAction = createAction(
-  '[SITE] Got Error',
-  props<{ message: string }>()
+export const gotNotificationAction = createAction(
+  '[SITE] Got Notification',
+  props<{ message: string, typeNotification: TypeNotification}>()
 );
 
-export const showErrorAction = createAction(
-  '[SITE] Show Error',
-  props<{ message: string }>()
+export const showNotificationAction = createAction(
+  '[SITE] Show Notification',
+  props<{ message: string, typeNotification: TypeNotification }>()
 );
 
-export const hidingErrorAction = createAction(
-  '[SITE] Hiding Error'
+export const hidingNotificationAction = createAction(
+  '[SITE] Hiding Notification'
 );
 
-export const hideErrorAction = createAction(
-  '[SITE] Hide Error'
+export const hideNotificationAction = createAction(
+  '[SITE] Hide Notification'
 );

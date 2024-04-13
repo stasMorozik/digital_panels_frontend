@@ -7,11 +7,13 @@ import { Store } from '@ngrx/store';
 import { CommonInputComponent } from 'src/app/ui/inputs/common-input/common-input.component';
 import { CommonButtonComponent } from 'src/app/ui/buttons/common-button/common-button.component';
 import { UderlineLinkComponent } from 'src/app/ui/links/uderline-link/uderline-link.component';
-import { userGetCodeAction } from 'src/app/state/user/user.actions';
-import { State, Approval, Notification } from 'src/app/state/app.state';
+import { userGetCodeAction, userSingInAction } from 'src/app/state/user/user.actions';
+import { State } from 'src/app/state/app.types';
+import { Notification } from 'src/app/state/shared/shared.types';
+import { Approval } from 'src/app/state/user/user.types';
 import { userIsAuthenticatedSelector } from 'src/app/state/user/user.selectors';
 import { notificationObjectSelector } from 'src/app/state/shared/shared.selectors';
-import { AlertDangerComponent } from 'src/app/ui/alerts/alert-danger.component';
+import { NotificationComponent } from 'src/app/ui/notification/notification.component';
 
 @Component({
   selector: 'sign-in',
@@ -23,7 +25,7 @@ import { AlertDangerComponent } from 'src/app/ui/alerts/alert-danger.component';
     CommonInputComponent,
     CommonButtonComponent,
     UderlineLinkComponent,
-    AlertDangerComponent
+    NotificationComponent
   ]
 })
 export class SignInComponent {
@@ -50,13 +52,13 @@ export class SignInComponent {
 
   getCode() {
     this.store.dispatch(userGetCodeAction({email: this.getCodeForm.value.email}));
+    this.signInForm.setValue({email: this.getCodeForm.value.email, code: ''});
   }
 
   signIn() {
-    
-  }
-
-  ngOnInit() {
-    
+    this.store.dispatch(userSingInAction({
+      email: this.signInForm.value.email, 
+      code: this.signInForm.value.code
+    }));
   }
 }

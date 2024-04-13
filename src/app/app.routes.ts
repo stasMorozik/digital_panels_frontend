@@ -29,6 +29,7 @@ export const routes: Routes = [
   {
     path: 'work-space',
     component: WorkSpaceComponent,
+    title: 'Панель администратора',
     canActivate: [guardAuthorizedPage],
     children: [
       
