@@ -17,8 +17,8 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule } from '@angular/f
 })
 export class CommonInputComponent implements ControlValueAccessor {
   @Input() id = '';
-  @Input() type = 'text';
-  @Input() required = 'true';
+  @Input() type = '';
+  @Input() required = '';
   @Input() placeholder = '';
   @Input() label = '';
 

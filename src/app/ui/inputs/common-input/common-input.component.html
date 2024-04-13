@@ -3,11 +3,10 @@
 </label>
 <input
   class="rounded border p-1 w-full mt-2"
-  [type]="type"
-  [id]="id"
+  [attr.type]="type"
+  [attr.id]="id"
   [attr.required]="required"
   [attr.placeholder]="placeholder"
   [(ngModel)]="value"
   (ngModelChange)="onChange($event)"
-  (blur)="onTouch()"
 >

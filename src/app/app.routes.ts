@@ -67,7 +67,7 @@ export const routes: Routes = [
       {
         path: 'files/new',
         component: FileNewComponent,
-        data: {title: 'Создание файла'}
+        data: {title: 'Добавление файла'}
       },
       {
         path: 'contents',
@@ -82,7 +82,7 @@ export const routes: Routes = [
       {
         path: 'contents/new',
         component: ContentNewComponent,
-        data: {title: 'Создание контента'}
+        data: {title: 'Добавление контента'}
       },
       {
         path: 'playlists',
@@ -97,7 +97,7 @@ export const routes: Routes = [
       {
         path: 'playlists/new',
         component: PlaylistNewComponent,
-        data: {title: 'Создание плэйлиста'}
+        data: {title: 'Добавление плэйлиста'}
       },
       {
         path: 'tasks',
@@ -112,7 +112,7 @@ export const routes: Routes = [
       {
         path: 'tasks/new',
         component: TaskNewComponent,
-        data: {title: 'Создание задания'}
+        data: {title: 'Добавление задания'}
       },
       {
         path: 'devices',
@@ -127,7 +127,7 @@ export const routes: Routes = [
       {
         path: 'devices/new',
         component: DeviceNewComponent,
-        data: {title: 'Создание устройства'}
+        data: {title: 'Добавление устройства'}
       },
       {
         path: 'groups',
@@ -142,7 +142,7 @@ export const routes: Routes = [
       {
         path: 'groups/new',
         component: GroupNewComponent,
-        data: {title: 'Создание группы устройств'}
+        data: {title: 'Добавление группы устройств'}
       },
       {
         path: 'assemblies',
@@ -157,7 +157,7 @@ export const routes: Routes = [
       {
         path: 'assemblies/new',
         component: AssemblyNewComponent,
-        data: {title: 'Создание сборки'}
+        data: {title: 'Добавление сборки'}
       }
     ]
   },
