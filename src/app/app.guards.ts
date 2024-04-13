@@ -22,7 +22,7 @@ export const guardNotAuthorizedPage = (
       (a: Action) => a.type == '[SITE] User Authorized' || a.type == '[SITE] User Not Authorized'
     ),
     map(
-      (a: Action) => a.type == '[SITE] User Authorized' ? createUrlTreeFromSnapshot(route, ['/work-space/']) : true
+      (a: Action) => a.type == '[SITE] User Authorized' ? createUrlTreeFromSnapshot(route, ['/work-space/files']) : true
     )
   );
 };

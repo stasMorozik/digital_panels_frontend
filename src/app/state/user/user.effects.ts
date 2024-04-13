@@ -83,7 +83,7 @@ export const userSingInEffect = createEffect(
           code: parseInt(args.code)
         }).pipe(
           map(() => {
-            router.navigate(['work-space']);
+            router.navigate(['work-space/files']);
             
             return ({type: '[Sign In page] User Authenticated'});
           }),
