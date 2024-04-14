@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { TypeNotification } from './shared.types';
+import { Data, TypeNotification } from './shared.types';
 
 export const gotNotificationAction = createAction(
   '[SITE] Got Notification',
@@ -17,4 +17,17 @@ export const hidingNotificationAction = createAction(
 
 export const hideNotificationAction = createAction(
   '[SITE] Hide Notification'
+);
+
+export const loadingDataAction = createAction(
+  '[WORK SPACE] Loading Data'
+);
+
+export const loadedDataAction = createAction(
+  '[WORK SPACE] Loaded Data',
+  props<{ payload: Data<any>}>()
+);
+
+export const droppedLoadingDataAction = createAction(
+  '[WORK SPACE] Dropped Loading Data'
 );

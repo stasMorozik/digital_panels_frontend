@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-import {File } from './file.types';
 
 export const fileListLoadAction = createAction(
   '[Work Space Files] Files Load',
@@ -9,19 +8,17 @@ export const fileListLoadAction = createAction(
       limit: number
     },
     filter: {
-      url?: string
+      type?: string,
+      url?: string,
+      extension?: string,
+      size?: number,
+      created_f?: string,
+      created_t?: string,
     },
     sort: {
+      size?: string,
+      type?: string,
       created?: string
     }
   }>()
-);
-
-export const fileListLoadingAction = createAction(
-  '[Work Space Files] Files Loading'
-);
-
-export const fileListLoadedAction = createAction(
-  '[Work Space Files] Files Loaded', 
-  props<{files: File[]}>()
 );

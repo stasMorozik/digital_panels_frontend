@@ -1,12 +1,3 @@
-
-export type Approval = 'LOAD' | 'IN_PROCESS' | 'LOADED';
-
-export type SateFiles = {
-  isLoaded: Approval
-  list: File[]
-  detail?: File
-}
-
 export type File = {
   id: string,
   url: string,

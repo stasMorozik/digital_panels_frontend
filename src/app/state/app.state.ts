@@ -5,4 +5,7 @@ export const appState: AppState = {
     isAuthorized: 'NO',
     isAuthenticated: 'NO'
   },
+  data: {
+    progress: 'NONE'
+  }
 };

@@ -3,6 +3,7 @@ import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { State } from 'src/app/state/app.types';
 import { CommonButtonComponent } from 'src/app/ui/buttons/common-button/common-button.component';
@@ -10,8 +11,10 @@ import { CommonInputComponent } from 'src/app/ui/inputs/common-input/common-inpu
 import { CommonLinkComponent } from 'src/app/ui/links/common-link/common-link.component';
 import { UderlineLinkComponent } from 'src/app/ui/links/uderline-link/uderline-link.component';
 import { CommonCollapseComponent } from 'src/app/ui/collapses/common-collapse/common-collapse.component';
-import { fileListSelector } from 'src/app/state/file/file.selectors';
 import { fileListLoadAction } from 'src/app/state/file/file.actions';
+import { dataObjectSelector } from 'src/app/state/shared/shared.selectors';
+import { File } from 'src/app/state/file/file.types';
+import { Data } from 'src/app/state/shared/shared.types';
 
 @Component({
   selector: 'file-list',
@@ -34,7 +37,7 @@ import { fileListLoadAction } from 'src/app/state/file/file.actions';
 export class FileListComponent {
   filterForm: FormGroup;
   isFilterOpen = 'HIDING';
-  list$ = this.store.select(fileListSelector);
+  list$: Observable<Data<File[]>> = this.store.select(dataObjectSelector);
 
   constructor(
     private store: Store<State>

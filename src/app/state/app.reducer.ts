@@ -16,25 +16,21 @@ import {
   gotNotificationAction, 
   showNotificationAction, 
   hidingNotificationAction, 
-  hideNotificationAction 
+  hideNotificationAction, 
+  loadingDataAction,
+  loadedDataAction,
+  droppedLoadingDataAction
 } from './shared/shared.actions';
 
 import { 
   gotNotificationReducer, 
   showNotificationReducer, 
   hidingNotificationReducer, 
-  hideNotificationReducer 
+  hideNotificationReducer, 
+  loadingDataReducer,
+  loadedDataReducer,
+  droppedLoadingDataReducer
 } from './shared/shared.reducers';
-
-import { 
-  fileListLoadedAction,
-  fileListLoadingAction 
-} from './file/file.actions';
-
-import { 
-  fileListLoadedReducer,
-  fileListLoadingReducer 
-} from './file/file.reducers';
 
 export const appReducer = createReducer(
   appState,
@@ -45,6 +41,7 @@ export const appReducer = createReducer(
   on(showNotificationAction, showNotificationReducer),
   on(hidingNotificationAction, hidingNotificationReducer),
   on(hideNotificationAction, hideNotificationReducer),
-  on(fileListLoadingAction, fileListLoadingReducer),
-  on(fileListLoadedAction, fileListLoadedReducer),
+  on(loadingDataAction, loadingDataReducer),
+  on(loadedDataAction, loadedDataReducer),
+  on(droppedLoadingDataAction, droppedLoadingDataReducer)
 );

@@ -1,5 +1,5 @@
 import { AppAction, AppState } from "../app.types";
-import { Notification, Visibility, TypeNotification } from './shared.types';
+import { Notification, Visibility, TypeNotification, Progress } from './shared.types';
 import { Action } from '@ngrx/store';
 
 export const gotNotificationReducer = (
@@ -56,3 +56,38 @@ export const hideNotificationReducer = (
     } as Notification
   };
 };
+
+export const loadingDataReducer = (
+  state: AppState,
+) => ({
+  ...state,
+  data: {
+    progress: 'LOADING' as Progress
+  }
+});
+
+export const loadedDataReducer = (
+  state: AppState,
+  action: Action
+) => {
+  const payload = (action as Action as AppAction<{
+    payload: any,
+  }>).payload;
+
+  return {
+    ...state,
+    data: {
+      progress: 'LOADED' as Progress,
+      entites: payload.payload
+    }
+  };
+};
+
+export const droppedLoadingDataReducer = (
+  state: AppState,
+) => ({
+  ...state,
+  data: {
+    progress: 'NONE' as Progress
+  }
+});

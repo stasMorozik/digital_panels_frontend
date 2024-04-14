@@ -1,3 +1,4 @@
+
 <div class="flex items-center justify-between">
   <div class="flex items-center justify-between">
     <common-button (click)="onOpenCloseFilter()" class="me-2 text-xs">
@@ -47,41 +48,46 @@
   <div>Контрол</div>
   <div>Контрол</div>
 </common-collapse>
-<table class="table-auto w-full">
-  <thead>
-    <tr class="bg-slate-200">
-      <td class="p-1 text-zinc-800 uppercase font-medium">Превью</td>
-      <td class="p-1 text-zinc-800 uppercase font-medium">Расширение</td>
-      <td class="p-1 text-zinc-800 uppercase font-medium">Тип</td>
-      <td class="p-1 text-zinc-800 uppercase font-medium">Размер</td>
-      <td class="p-1 text-zinc-800 uppercase font-medium">Создан</td>
-    </tr>
-  </thead>
-  <tbody>
-    <tr class="border-b">
-      <td class="p-1">___</td>
-      <td class="p-1">.jpg</td>
-      <td class="p-1">Каритнка</td>
-      <td class="p-1">290558</td>
-      <td class="p-1">1961</td>
-    </tr>
-    <tr class="border-b">
-      <td class="p-1">___</td>
-      <td class="p-1">.jpg</td>
-      <td class="p-1">Каритнка</td>
-      <td class="p-1">143205</td>
-      <td class="p-1">1972</td>
-    </tr>
-    <tr class="border-b">
-      <td class="p-1">___</td>
-      <td class="p-1">.png</td>
-      <td class="p-1">Каритнка</td>
-      <td class="p-1">19734505</td>
-      <td class="p-1">1975</td>
-    </tr>
-  </tbody>
-</table>
-<div class="mt-2 flex justify-start">
+<div class="shadow-sm grid grid-cols-5 gap-5 bg-violet-50 text-slate-600 uppercase p-3 rounded-b rounded-t">
+  <div>
+    Превью
+  </div>
+  <div>
+    Тип
+  </div>
+  <div>
+    Расширение
+  </div>
+  <div>
+    Размер
+  </div>
+  <div>
+    Создан
+  </div>
+</div>
+
+  @if (list$ | async; as list) {
+    @for (item of list.entites; track item) {
+      <div class="grid grid-cols-5 gap-5 p-3 border-b">
+        <div>
+          {{item.url}}
+        </div>
+        <div>
+          {{item.type}}
+        </div>
+        <div>
+          {{item.extension}}
+        </div>
+        <div>
+          {{item.size}}
+        </div>
+        <div>
+          {{item.created}}
+        </div>
+      </div>
+    }
+  }
+<div class="mt-2 flex justify-start absolute bottom-0">
   <div class="flex justify-between">
     <common-button class="me-2">
       <svg width="20px" height="20px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -94,7 +100,4 @@
       </svg>
     </common-button>
   </div>
-</div>
-<div style="display: none;">
-  <svg width="240" height="240" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_OSmW{transform-origin:center;animation:spinner_T6mA .75s step-end infinite}@keyframes spinner_T6mA{8.3%{transform:rotate(30deg)}16.6%{transform:rotate(60deg)}25%{transform:rotate(90deg)}33.3%{transform:rotate(120deg)}41.6%{transform:rotate(150deg)}50%{transform:rotate(180deg)}58.3%{transform:rotate(210deg)}66.6%{transform:rotate(240deg)}75%{transform:rotate(270deg)}83.3%{transform:rotate(300deg)}91.6%{transform:rotate(330deg)}100%{transform:rotate(360deg)}}</style><g class="spinner_OSmW"><rect x="11" y="1" width="2" height="5" opacity=".14"/><rect x="11" y="1" width="2" height="5" transform="rotate(30 12 12)" opacity=".29"/><rect x="11" y="1" width="2" height="5" transform="rotate(60 12 12)" opacity=".43"/><rect x="11" y="1" width="2" height="5" transform="rotate(90 12 12)" opacity=".57"/><rect x="11" y="1" width="2" height="5" transform="rotate(120 12 12)" opacity=".71"/><rect x="11" y="1" width="2" height="5" transform="rotate(150 12 12)" opacity=".86"/><rect x="11" y="1" width="2" height="5" transform="rotate(180 12 12)"/></g></svg>
 </div>
