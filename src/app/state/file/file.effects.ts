@@ -2,9 +2,52 @@ import { of, delay } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Action, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { catchError, switchMap, concatMap, map } from 'rxjs/operators';
 import { TypeNotification } from '../shared/shared.types';
+
+
+const buildPagi = (args) => {
+  return {
+    ...args,
+    'pagi[page]': args.pagi.page,
+    'pagi[limit]': args.pagi.limit
+  }
+};
+
+const buildFilter = (args) => {
+  const keys = [
+    'type', 'url', 'extension', 'size', 'created_f', 'created_t'
+  ];
+
+  keys.forEach(k => {
+    if (args.filter[k]) {
+      args = {
+        ...args,
+        [`filter[${k}]`]: args.filter[k]
+      }
+    }
+  });
+
+  return args;
+};
+
+const buildSort = (args) => {
+  const keys = [
+    'type', 'size', 'created'
+  ];
+
+  keys.forEach(k => {
+    if (args.sort[k]) {
+      args = {
+        ...args,
+        [`sort[${k}]`]: args.sort[k]
+      }
+    }
+  });
+
+  return args;
+}
 
 export const fileListLoadEffect = createEffect(
   (
@@ -14,45 +57,9 @@ export const fileListLoadEffect = createEffect(
   ) => {
     return actions$.pipe(
       ofType('[Work Space Files] Files Load'),
-      map((args) => {
-        return {
-          ...args,
-          'pagi[page]': args.pagi.page,
-          'pagi[limit]': args.pagi.limit
-        }
-      }),
-      map((args) => {
-        const keys = [
-          'type', 'url', 'extension', 'size', 'created_f', 'created_t'
-        ];
-
-        keys.forEach(k => {
-          if (args.filter[k]) {
-            args = {
-              ...args,
-              [`filter[${k}]`]: args.filter[k]
-            }
-          }
-        });
-
-        return args;
-      }),
-      map((args) => {
-        const keys = [
-          'type', 'size', 'created'
-        ];
-
-        keys.forEach(k => {
-          if (args.sort[k]) {
-            args = {
-              ...args,
-              [`sort[${k}]`]: args.sort[k]
-            }
-          }
-        });
-
-        return args;
-      }),
+      map((args) => buildPagi),
+      map((args) => buildFilter),
+      map((args) => buildSort),
       map((args) => {
         delete args.pagi;
         delete args.filter;
@@ -80,11 +87,10 @@ export const fileListLoadEffect = createEffect(
               typeNotification: 'DANGER' as TypeNotification
             };
 
+            const a_0 = { type: '[SITE] Got Notification', payload };
+            const a_1 = {type: '[WORK SPACE] Dropped Loading Data'};
 
-            return of(
-              { type: '[SITE] Got Notification', payload }, 
-              {type: '[WORK SPACE] Dropped Loading Data'}
-            ).pipe(
+            return of(a_0, a_1).pipe(
               concatMap(curA => of(curA).pipe(delay(500)))
             );
           })
