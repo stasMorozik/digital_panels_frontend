@@ -1,19 +1,20 @@
-FROM node:20.10.0-alpine
+FROM node:alpine
 
 WORKDIR /app
 
 COPY package.json /app/package.json
-RUN npm install
-RUN npm install -g @angular/cli
-RUN npm install -D tailwindcss postcss autoprefixer
-
-COPY angular.json /app/angular.json
-COPY tsconfig.app.json /app/tsconfig.app.json
-COPY tsconfig.json /app/tsconfig.json
-COPY tailwind.config.js /app/tailwind.config.js
-COPY proxy.conf.json ./proxy.conf.json
+COPY index.html /app/index.html
+COPY postcss.config.cjs /app/postcss.config.cjs
+COPY rescript.json /app/rescript.json
+COPY tailwind.config.cjs /app/tailwind.config.cjs
+COPY vite.config.js /app/vite.config.js
 COPY src /app/src/
+COPY entry-point.sh /usr/local/bin/entry-point.sh
 
-EXPOSE 4200
+RUN chmod +x /usr/local/bin/entry-point.sh
+RUN npm install
+RUN npm run res:dev
 
-CMD ["/usr/local/bin/ng", "serve", "--host", "0.0.0.0"]
+EXPOSE 3000
+
+ENTRYPOINT ["sh", "/usr/local/bin/entry-point.sh"]
